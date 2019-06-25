@@ -2,9 +2,10 @@ service: clear-lambda-storage
 
 provider:
   name: aws
-  stage: ${opt:stage, 'dev'}
+  stage: ${opt:stage, 'production'}
   runtime: python3.6
-  region: ${opt:region, 'us-east-1'}
+  region: ${opt:region, 'us-west-2'}
+  profile: decore
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -26,6 +27,6 @@ functions:
   clear_lambda_storage:
     handler: handler.clear_lambda_storage
     memorySize: 128
-    timeout: 120
+    timeout: 900
     events:
       - schedule: cron(0 12 ? * SUN *) # Run every sunday at 12:00pm UTC
